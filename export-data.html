@@ -1,13 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Export Données MCS</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #FAF9F7;
+        }
+        
+        .export-container {
+            background: white;
+            padding: 40px;
+            border-left: 4px solid #88A78B;
+            box-shadow: 0 8px 30px rgba(11, 54, 51, 0.04);
+        }
+        
+        h1 {
+            color: #0B3633;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            background: #88A78B;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+            border-radius: 5px;
+        }
+        
+        .btn:hover {
+            background: #0B3633;
+        }
+        
+        .info {
+            background: #F5F3EF;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 3px solid #88A78B;
+        }
+
+        #status {
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <button onclick="exportToCSV()">Télécharger les données en CSV</button>
-    
+    <div class="export-container">
+        <h1>📊 Export des données d'enquête MCS</h1>
+        
+        <div class="info">
+            <p><strong>Instructions :</strong></p>
+            <p>1. Cliquez sur "Télécharger CSV" pour récupérer toutes les réponses</p>
+            <p>2. Le fichier s'ouvrira directement dans Excel</p>
+            <p>3. Vous pourrez analyser les données facilement</p>
+        </div>
+        
+        <button onclick="exportToCSV()" class="btn">📥 Télécharger les données en CSV</button>
+        <button onclick="showDataCount()" class="btn">📈 Voir le nombre de réponses</button>
+        
+        <div id="status"></div>
+    </div>
+
     <script>
         // Configuration Firebase
         const firebaseConfig = {
@@ -23,27 +91,66 @@
         const db = firebase.firestore();
         
         async function exportToCSV() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = '⏳ Récupération des données...';
+            statusDiv.style.backgroundColor = '#fff3cd';
+            statusDiv.style.color = '#856404';
+            
             try {
+                console.log('Tentative de connexion à Firebase...');
                 const snapshot = await db.collection('survey_responses').get();
-                const data = [];
+                console.log('Nombre de documents:', snapshot.size);
                 
+                const data = [];
                 snapshot.forEach(doc => {
+                    console.log('Document:', doc.data());
                     data.push(doc.data());
                 });
                 
+                if (data.length === 0) {
+                    statusDiv.innerHTML = '❌ Aucune donnée trouvée. Vérifiez que des réponses ont été soumises.';
+                    statusDiv.style.backgroundColor = '#f8d7da';
+                    statusDiv.style.color = '#721c24';
+                    return;
+                }
+                
                 // Convertir en CSV
                 const csv = convertToCSV(data);
-                downloadCSV(csv, 'enquete-mcs-donnees.csv');
+                downloadCSV(csv, `enquete-mcs-donnees-${new Date().toISOString().split('T')[0]}.csv`);
+                
+                statusDiv.innerHTML = `✅ ${data.length} réponses téléchargées avec succès !`;
+                statusDiv.style.backgroundColor = '#d4edda';
+                statusDiv.style.color = '#155724';
                 
             } catch (error) {
-                console.error('Erreur:', error);
+                console.error('Erreur détaillée:', error);
+                statusDiv.innerHTML = '❌ Erreur lors du téléchargement: ' + error.message;
+                statusDiv.style.backgroundColor = '#f8d7da';
+                statusDiv.style.color = '#721c24';
+            }
+        }
+        
+        async function showDataCount() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = '⏳ Comptage...';
+            statusDiv.style.backgroundColor = '#fff3cd';
+            
+            try {
+                const snapshot = await db.collection('survey_responses').get();
+                statusDiv.innerHTML = `📊 Nombre total de réponses: ${snapshot.size}`;
+                statusDiv.style.backgroundColor = '#cce5ff';
+                statusDiv.style.color = '#004085';
+            } catch (error) {
+                statusDiv.innerHTML = '❌ Erreur: ' + error.message;
+                statusDiv.style.backgroundColor = '#f8d7da';
+                statusDiv.style.color = '#721c24';
             }
         }
         
         function convertToCSV(data) {
             if (data.length === 0) return '';
             
-            // En-têtes
+            // En-têtes des colonnes
             const headers = Object.keys(data[0]);
             const csvHeaders = headers.join(',');
             
@@ -55,7 +162,9 @@
                     if (Array.isArray(value)) {
                         return `"${value.join('; ')}"`;
                     }
-                    return `"${value || ''}"`;
+                    // Échapper les guillemets et les virgules
+                    const cleanValue = String(value || '').replace(/"/g, '""');
+                    return `"${cleanValue}"`;
                 }).join(',');
             });
             
@@ -63,12 +172,16 @@
         }
         
         function downloadCSV(csv, filename) {
-            const blob = new Blob([csv], { type: 'text/csv' });
+            // Ajouter BOM pour Excel français
+            const BOM = '\uFEFF';
+            const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = filename;
+            document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
         }
     </script>
