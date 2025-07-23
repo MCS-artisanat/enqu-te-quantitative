@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Export Données MCS</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <button onclick="exportToCSV()">Télécharger les données en CSV</button>
+    
+    <script>
+        // Même config Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZ_9a1n3FiIfwJxggkqRdEOob2VdASsJo",
+            authDomain: "enquete-quantitative.firebaseapp.com",
+            projectId: "enquete-quantitative",
+            // ... autres paramètres
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        async function exportToCSV() {
+            try {
+                const snapshot = await db.collection('survey_responses').get();
+                const data = [];
+                
+                snapshot.forEach(doc => {
+                    data.push(doc.data());
+                });
+                
+                // Convertir en CSV
+                const csv = convertToCSV(data);
+                downloadCSV(csv, 'enquete-mcs-donnees.csv');
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+        }
+        
+        function convertToCSV(data) {
+            if (data.length === 0) return '';
+            
+            // En-têtes
+            const headers = Object.keys(data[0]);
+            const csvHeaders = headers.join(',');
+            
+            // Lignes de données
+            const csvRows = data.map(row => {
+                return headers.map(header => {
+                    const value = row[header];
+                    // Gérer les arrays (priorités)
+                    if (Array.isArray(value)) {
+                        return `"${value.join('; ')}"`;
+                    }
+                    return `"${value || ''}"`;
+                }).join(',');
+            });
+            
+            return [csvHeaders, ...csvRows].join('\n');
+        }
+        
+        function downloadCSV(csv, filename) {
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
