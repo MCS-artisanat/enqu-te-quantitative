@@ -9,12 +9,14 @@
     <button onclick="exportToCSV()">Télécharger les données en CSV</button>
     
     <script>
-        // Même config Firebase
+        // Configuration Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBZ_9a1n3FiIfwJxggkqRdEOob2VdASsJo",
             authDomain: "enquete-quantitative.firebaseapp.com",
             projectId: "enquete-quantitative",
-            // ... autres paramètres
+            storageBucket: "enquete-quantitative.firebasestorage.app",
+            messagingSenderId: "392205839348",
+            appId: "1:392205839348:web:f26523c193368847d227a1"
         };
         
         firebase.initializeApp(firebaseConfig);
