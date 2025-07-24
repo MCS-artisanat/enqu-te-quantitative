@@ -2,156 +2,152 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Export Données MCS</title>
+    <title>Export Sécurisé - MCS</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 40px;
-            background: #FAF9F7;
-        }
-        
-        .export-container {
-            background: white;
-            padding: 40px;
-            border-left: 4px solid #88A78B;
-            box-shadow: 0 8px 30px rgba(11, 54, 51, 0.04);
-        }
-        
-        h1 {
-            color: #0B3633;
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-        
-        .btn {
-            background: #88A78B;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 10px 5px;
-            border-radius: 5px;
-        }
-        
-        .btn:hover {
-            background: #0B3633;
-        }
-        
-        .info {
-            background: #F5F3EF;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 3px solid #88A78B;
-        }
-
-        #status {
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 5px;
-        }
+        body { font-family: Inter; max-width: 600px; margin: 50px auto; padding: 40px; background: #FAF9F7; }
+        .container { background: white; padding: 40px; border-left: 4px solid #88A78B; }
+        .login-form { display: block; }
+        .export-section { display: none; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; }
+        .btn { background: #88A78B; color: white; padding: 15px 30px; border: none; cursor: pointer; margin: 10px 5px; }
+        .btn:hover { background: #0B3633; }
+        .error { color: red; background: #ffe6e6; padding: 10px; margin: 10px 0; }
+        .success { color: green; background: #e6ffe6; padding: 10px; margin: 10px 0; }
     </style>
 </head>
 <body>
-    <div class="export-container">
-        <h1>📊 Export des données d'enquête MCS</h1>
+    <div class="container">
+        <h1>🔒 Export Sécurisé MCS</h1>
         
-        <div class="info">
-            <p><strong>Instructions :</strong></p>
-            <p>1. Cliquez sur "Télécharger CSV" pour récupérer toutes les réponses</p>
-            <p>2. Le fichier s'ouvrira directement dans Excel</p>
-            <p>3. Vous pourrez analyser les données facilement</p>
+        <!-- FORMULAIRE DE CONNEXION -->
+        <div id="loginForm" class="login-form">
+            <h3>Authentification Administrateur</h3>
+            <input type="email" id="email" placeholder="Email administrateur" required>
+            <input type="password" id="password" placeholder="Mot de passe" required>
+            <button onclick="login()" class="btn">🔐 Se connecter</button>
+            <div id="loginStatus"></div>
         </div>
         
-        <button onclick="exportToCSV()" class="btn">📥 Télécharger les données en CSV</button>
-        <button onclick="showDataCount()" class="btn">📈 Voir le nombre de réponses</button>
-        
-        <div id="status"></div>
+        <!-- SECTION EXPORT (cachée par défaut) -->
+        <div id="exportSection" class="export-section">
+            <h3>✅ Connecté en tant qu'administrateur</h3>
+            <button onclick="exportToExcel()" class="btn">📊 Télécharger Excel</button>
+            <button onclick="showDataCount()" class="btn">📈 Compter réponses</button>
+            <button onclick="logout()" class="btn" style="background: #dc3545;">🚪 Déconnexion</button>
+            <div id="exportStatus"></div>
+        </div>
     </div>
 
     <script>
-    // Configuration Firebase (gardez la même)
-    const firebaseConfig = {
-        apiKey: "AIzaSyBZ_9a1n3FiIfwJxggkqRdEOob2VdASsJo",
-        authDomain: "enquete-quantitative.firebaseapp.com",
-        projectId: "enquete-quantitative",
-        storageBucket: "enquete-quantitative.firebasestorage.app",
-        messagingSenderId: "392205839348",
-        appId: "1:392205839348:web:f26523c193368847d227a1"
-    };
-    
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    
-    async function exportToCSV() {
-        const statusDiv = document.getElementById('status');
-        statusDiv.innerHTML = '⏳ Récupération des données...';
+        // Configuration Firebase (MÊME CONFIG mais utilisation sécurisée)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZ_9a1n3FiIfwJxggkqRdEOob2VdASsJo",
+            authDomain: "enquete-quantitative.firebaseapp.com",
+            projectId: "enquete-quantitative",
+            storageBucket: "enquete-quantitative.firebasestorage.app",
+            messagingSenderId: "392205839348",
+            appId: "1:392205839348:web:f26523c193368847d227a1"
+        };
         
-        try {
-            const snapshot = await db.collection('survey_responses').get();
-            const data = [];
-            
-            snapshot.forEach(doc => {
-                data.push(doc.data());
-            });
-            
-            if (data.length === 0) {
-                statusDiv.innerHTML = '❌ Aucune donnée trouvée';
-                return;
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // Vérifier si déjà connecté
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                showExportSection();
+            } else {
+                showLoginForm();
             }
-            
-            // Créer un fichier Excel au lieu de CSV
-            downloadExcel(data, `enquete-mcs-donnees-${new Date().toISOString().split('T')[0]}.xlsx`);
-            
-            statusDiv.innerHTML = `✅ ${data.length} réponses téléchargées en Excel !`;
-            statusDiv.style.backgroundColor = '#d4edda';
-            statusDiv.style.color = '#155724';
-            
-        } catch (error) {
-            statusDiv.innerHTML = '❌ Erreur: ' + error.message;
-            statusDiv.style.backgroundColor = '#f8d7da';
-            statusDiv.style.color = '#721c24';
-        }
-    }
-    
-    function downloadExcel(data, filename) {
-        // Créer un nouveau workbook
-        const wb = XLSX.utils.book_new();
-        
-        // Préparer les données pour Excel
-        const excelData = data.map(row => {
-            const newRow = {};
-            Object.keys(row).forEach(key => {
-                const value = row[key];
-                // Gérer les arrays (priorités)
-                if (Array.isArray(value)) {
-                    newRow[key] = value.join('; ');
-                } else {
-                    newRow[key] = value || '';
-                }
-            });
-            return newRow;
         });
         
-        // Créer la feuille de calcul
-        const ws = XLSX.utils.json_to_sheet(excelData);
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const status = document.getElementById('loginStatus');
+            
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                status.innerHTML = '<div class="success">✅ Connexion réussie !</div>';
+                showExportSection();
+            } catch (error) {
+                status.innerHTML = `<div class="error">❌ Erreur: ${error.message}</div>`;
+            }
+        }
         
-        // Ajouter la feuille au workbook
-        XLSX.utils.book_append_sheet(wb, ws, "Réponses Enquête");
+        function logout() {
+            auth.signOut();
+            showLoginForm();
+        }
         
-        // Télécharger le fichier Excel
-        XLSX.writeFile(wb, filename);
-    }
-    
-    // Gardez les autres fonctions identiques (showDataCount, etc.)
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('exportSection').style.display = 'none';
+        }
+        
+        function showExportSection() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('exportSection').style.display = 'block';
+        }
+        
+        async function exportToExcel() {
+            const status = document.getElementById('exportStatus');
+            status.innerHTML = '⏳ Export en cours...';
+            
+            try {
+                const snapshot = await db.collection('survey_responses').get();
+                const data = [];
+                
+                snapshot.forEach(doc => {
+                    data.push(doc.data());
+                });
+                
+                if (data.length === 0) {
+                    status.innerHTML = '❌ Aucune donnée trouvée';
+                    return;
+                }
+                
+                // Créer Excel
+                const wb = XLSX.utils.book_new();
+                const excelData = data.map(row => {
+                    const newRow = {};
+                    Object.keys(row).forEach(key => {
+                        const value = row[key];
+                        if (Array.isArray(value)) {
+                            newRow[key] = value.join('; ');
+                        } else {
+                            newRow[key] = value || '';
+                        }
+                    });
+                    return newRow;
+                });
+                
+                const ws = XLSX.utils.json_to_sheet(excelData);
+                XLSX.utils.book_append_sheet(wb, ws, "Enquête MCS");
+                XLSX.writeFile(wb, `enquete-mcs-${new Date().toISOString().split('T')[0]}.xlsx`);
+                
+                status.innerHTML = `✅ ${data.length} réponses exportées !`;
+                
+            } catch (error) {
+                status.innerHTML = `❌ Erreur: ${error.message}`;
+            }
+        }
+        
+        async function showDataCount() {
+            const status = document.getElementById('exportStatus');
+            try {
+                const snapshot = await db.collection('survey_responses').get();
+                status.innerHTML = `📊 Total: ${snapshot.size} réponses`;
+            } catch (error) {
+                status.innerHTML = `❌ Erreur: ${error.message}`;
+            }
+        }
     </script>
 </body>
 </html>
