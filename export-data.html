@@ -6,7 +6,6 @@
     <title>Export Données MCS</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     
     <style>
         body {
@@ -71,87 +70,120 @@
             <p>3. Vous pourrez analyser les données facilement</p>
         </div>
         
-        <button onclick="exportToCSV()" class="btn">📥 Télécharger en Excel (.xlsx)</button>
+        <button onclick="exportToCSV()" class="btn">📥 Télécharger les données en CSV</button>
         <button onclick="showDataCount()" class="btn">📈 Voir le nombre de réponses</button>
         
         <div id="status"></div>
     </div>
 
     <script>
-    // Configuration Firebase (gardez la même)
-    const firebaseConfig = {
-        apiKey: "AIzaSyBZ_9a1n3FiIfwJxggkqRdEOob2VdASsJo",
-        authDomain: "enquete-quantitative.firebaseapp.com",
-        projectId: "enquete-quantitative",
-        storageBucket: "enquete-quantitative.firebasestorage.app",
-        messagingSenderId: "392205839348",
-        appId: "1:392205839348:web:f26523c193368847d227a1"
-    };
-    
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    
-    async function exportToCSV() {
-        const statusDiv = document.getElementById('status');
-        statusDiv.innerHTML = '⏳ Récupération des données...';
+        // Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZ_9a1n3FiIfwJxggkqRdEOob2VdASsJo",
+            authDomain: "enquete-quantitative.firebaseapp.com",
+            projectId: "enquete-quantitative",
+            storageBucket: "enquete-quantitative.firebasestorage.app",
+            messagingSenderId: "392205839348",
+            appId: "1:392205839348:web:f26523c193368847d227a1"
+        };
         
-        try {
-            const snapshot = await db.collection('survey_responses').get();
-            const data = [];
-            
-            snapshot.forEach(doc => {
-                data.push(doc.data());
-            });
-            
-            if (data.length === 0) {
-                statusDiv.innerHTML = '❌ Aucune donnée trouvée';
-                return;
-            }
-            
-            // Créer un fichier Excel au lieu de CSV
-            downloadExcel(data, `enquete-mcs-donnees-${new Date().toISOString().split('T')[0]}.xlsx`);
-            
-            statusDiv.innerHTML = `✅ ${data.length} réponses téléchargées en Excel !`;
-            statusDiv.style.backgroundColor = '#d4edda';
-            statusDiv.style.color = '#155724';
-            
-        } catch (error) {
-            statusDiv.innerHTML = '❌ Erreur: ' + error.message;
-            statusDiv.style.backgroundColor = '#f8d7da';
-            statusDiv.style.color = '#721c24';
-        }
-    }
-    
-    function downloadExcel(data, filename) {
-        // Créer un nouveau workbook
-        const wb = XLSX.utils.book_new();
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
         
-        // Préparer les données pour Excel
-        const excelData = data.map(row => {
-            const newRow = {};
-            Object.keys(row).forEach(key => {
-                const value = row[key];
-                // Gérer les arrays (priorités)
-                if (Array.isArray(value)) {
-                    newRow[key] = value.join('; ');
-                } else {
-                    newRow[key] = value || '';
+        async function exportToCSV() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = '⏳ Récupération des données...';
+            statusDiv.style.backgroundColor = '#fff3cd';
+            statusDiv.style.color = '#856404';
+            
+            try {
+                console.log('Tentative de connexion à Firebase...');
+                const snapshot = await db.collection('survey_responses').get();
+                console.log('Nombre de documents:', snapshot.size);
+                
+                const data = [];
+                snapshot.forEach(doc => {
+                    console.log('Document:', doc.data());
+                    data.push(doc.data());
+                });
+                
+                if (data.length === 0) {
+                    statusDiv.innerHTML = '❌ Aucune donnée trouvée. Vérifiez que des réponses ont été soumises.';
+                    statusDiv.style.backgroundColor = '#f8d7da';
+                    statusDiv.style.color = '#721c24';
+                    return;
                 }
+                
+                // Convertir en CSV
+                const csv = convertToCSV(data);
+                downloadCSV(csv, `enquete-mcs-donnees-${new Date().toISOString().split('T')[0]}.csv`);
+                
+                statusDiv.innerHTML = `✅ ${data.length} réponses téléchargées avec succès !`;
+                statusDiv.style.backgroundColor = '#d4edda';
+                statusDiv.style.color = '#155724';
+                
+            } catch (error) {
+                console.error('Erreur détaillée:', error);
+                statusDiv.innerHTML = '❌ Erreur lors du téléchargement: ' + error.message;
+                statusDiv.style.backgroundColor = '#f8d7da';
+                statusDiv.style.color = '#721c24';
+            }
+        }
+        
+        async function showDataCount() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = '⏳ Comptage...';
+            statusDiv.style.backgroundColor = '#fff3cd';
+            
+            try {
+                const snapshot = await db.collection('survey_responses').get();
+                statusDiv.innerHTML = `📊 Nombre total de réponses: ${snapshot.size}`;
+                statusDiv.style.backgroundColor = '#cce5ff';
+                statusDiv.style.color = '#004085';
+            } catch (error) {
+                statusDiv.innerHTML = '❌ Erreur: ' + error.message;
+                statusDiv.style.backgroundColor = '#f8d7da';
+                statusDiv.style.color = '#721c24';
+            }
+        }
+        
+        function convertToCSV(data) {
+            if (data.length === 0) return '';
+            
+            // En-têtes des colonnes
+            const headers = Object.keys(data[0]);
+            const csvHeaders = headers.join(',');
+            
+            // Lignes de données
+            const csvRows = data.map(row => {
+                return headers.map(header => {
+                    const value = row[header];
+                    // Gérer les arrays (priorités)
+                    if (Array.isArray(value)) {
+                        return `"${value.join('; ')}"`;
+                    }
+                    // Échapper les guillemets et les virgules
+                    const cleanValue = String(value || '').replace(/"/g, '""');
+                    return `"${cleanValue}"`;
+                }).join(',');
             });
-            return newRow;
-        });
+            
+            return [csvHeaders, ...csvRows].join('\n');
+        }
         
-        // Créer la feuille de calcul
-        const ws = XLSX.utils.json_to_sheet(excelData);
-        
-        // Ajouter la feuille au workbook
-        XLSX.utils.book_append_sheet(wb, ws, "Réponses Enquête");
-        
-        // Télécharger le fichier Excel
-        XLSX.writeFile(wb, filename);
-    }
-    
-    // Gardez les autres fonctions identiques (showDataCount, etc.)
+        function downloadCSV(csv, filename) {
+            // Ajouter BOM pour Excel français
+            const BOM = '\uFEFF';
+            const blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
     </script>
 </body>
 </html>
