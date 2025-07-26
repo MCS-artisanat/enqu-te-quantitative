@@ -12,8 +12,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     
     <style>
         :root {
@@ -594,101 +594,72 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Quelle est votre tranche d'âge ? <span class="required">*</span></label>
-                    <div class="radio-group">
-                        <div class="radio-item">
-                            <input type="radio" name="age" value="moins_18" id="moins_18" required>
-                            <label for="moins_18">Moins de 18 ans</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="age" value="18_25" id="18_25" required>
-                            <label for="18_25">18-25 ans</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="age" value="26_35" id="26_35" required>
-                            <label for="26_35">26-35 ans</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="age" value="36_50" id="36_50" required>
-                            <label for="36_50">36-50 ans</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="age" value="51_65" id="51_65" required>
-                            <label for="51_65">51-65 ans</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="age" value="plus_65" id="plus_65" required>
-                            <label for="plus_65">Plus de 65 ans</label>
-                        </div>
-                    </div>
-                    <div class="error">Veuillez sélectionner votre tranche d'âge</div>
+                    <label class="form-label">Âge <span class="required">*</span></label>
+                    <input type="number" name="age" class="form-input" placeholder="Votre âge" required min="16" max="120">
+                    <div class="error">Veuillez indiquer votre âge</div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Vous êtes : <span class="required">*</span></label>
+                    <label class="form-label">Statut professionnel <span class="required">*</span></label>
                     <div class="radio-group">
                         <div class="radio-item">
-                            <input type="radio" name="sexe" value="femme" id="femme" required>
-                            <label for="femme">Une femme</label>
+                            <input type="radio" name="statut" value="cadre_pis" id="cadre_pis" required>
+                            <label for="cadre_pis">Cadre et Profession Intellectuelle Supérieure</label>
                         </div>
+                        <div class="radio-item">
+                            <input type="radio" name="statut" value="profession_intermediaire" id="profession_intermediaire" required>
+                            <label for="profession_intermediaire">Profession intermédiaire</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="statut" value="employe" id="employe" required>
+                            <label for="employe">Employé</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="statut" value="ouvrier" id="ouvrier" required>
+                            <label for="ouvrier">Ouvrier</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="statut" value="artisan_commercant" id="artisan_commercant" required>
+                            <label for="artisan_commercant">Artisan, Commerçant et Chef d'entreprise</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="statut" value="agriculteur" id="agriculteur" required>
+                            <label for="agriculteur">Agriculteur</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="statut" value="etudiant" id="etudiant" required>
+                            <label for="etudiant">Étudiant</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="statut" value="retraite" id="retraite" required>
+                            <label for="retraite">Retraité</label>
+                        </div>
+                    </div>
+                    <div class="error">Veuillez sélectionner votre statut professionnel</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Sexe <span class="required">*</span></label>
+                    <div class="radio-group">
                         <div class="radio-item">
                             <input type="radio" name="sexe" value="homme" id="homme" required>
-                            <label for="homme">Un homme</label>
+                            <label for="homme">Homme</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="sexe" value="autre" id="autre" required>
-                            <label for="autre">Autre</label>
+                            <input type="radio" name="sexe" value="femme" id="femme" required>
+                            <label for="femme">Femme</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="sexe" value="pas_repondre" id="pas_repondre" required>
-                            <label for="pas_repondre">Préfère ne pas répondre</label>
+                            <input type="radio" name="sexe" value="autre" id="autre_sexe" required>
+                            <label for="autre_sexe">Autre</label>
                         </div>
                     </div>
                     <div class="error">Veuillez sélectionner votre sexe</div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Quelle est votre catégorie socio-professionnelle : <span class="required">*</span></label>
-                    <div class="radio-group">
-                        <div class="radio-item">
-                            <input type="radio" name="csp" value="artisan_commercant" id="artisan_commercant" required>
-                            <label for="artisan_commercant">Artisan, Commerçant, Chef d'entreprise</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="csp" value="employe" id="employe" required>
-                            <label for="employe">Employé</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="csp" value="ouvrier" id="ouvrier" required>
-                            <label for="ouvrier">Ouvrier</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="csp" value="agriculteur" id="agriculteur" required>
-                            <label for="agriculteur">Agriculteur</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="csp" value="profession_intermediaire" id="profession_intermediaire" required>
-                            <label for="profession_intermediaire">Profession intermédiaire</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="csp" value="retraite" id="retraite" required>
-                            <label for="retraite">Retraité</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="csp" value="etudiant" id="etudiant" required>
-                            <label for="etudiant">Étudiant</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="csp" value="sans_emploi" id="sans_emploi" required>
-                            <label for="sans_emploi">Sans emploi</label>
-                        </div>
-                    </div>
-                    <div class="error">Veuillez sélectionner votre catégorie socio-professionnelle</div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Quelle est votre commune de résidence : <span class="required">*</span></label>
-                    <input type="text" name="commune" class="form-input" placeholder="Votre commune de résidence" required>
+                    <label class="form-label">Commune <span class="required">*</span></label>
+                    <input type="text" name="commune" class="form-input" placeholder="Votre commune" required>
                     <div class="error">Veuillez indiquer votre commune</div>
                 </div>
 
@@ -712,30 +683,36 @@
                             <label for="seul">Seul(e)</label>
                         </div>
                     </div>
-                    <div class="error">Veuillez sélectionner votre type de participation</div>
+                    <div class="error">Veuillez sélectionner une réponse</div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Combien de fois avez-vous participé à la fête de la truffade ? <span class="required">*</span></label>
+                    <label class="form-label">Vous avez participé combien de fois à la fête de la truffade ? <span class="required">*</span></label>
+                    <input type="number" name="nb_participations" class="form-input" placeholder="Nombre de participations" required min="0">
+                    <div class="error">Veuillez indiquer le nombre de participations</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Vous participez à cette fête : <span class="required">*</span></label>
                     <div class="radio-group">
                         <div class="radio-item">
-                            <input type="radio" name="nb_participations" value="premiere" id="premiere" required>
-                            <label for="premiere">C'est ma première fois</label>
+                            <input type="radio" name="participation_type" value="famille_enfants" id="famille_enfants" required>
+                            <label for="famille_enfants">En famille avec enfants</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="nb_participations" value="2_3" id="2_3" required>
-                            <label for="2_3">2 à 3 fois</label>
+                            <input type="radio" name="participation_type" value="couple" id="couple" required>
+                            <label for="couple">En couple</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="nb_participations" value="4_5" id="4_5" required>
-                            <label for="4_5">4 à 5 fois</label>
+                            <input type="radio" name="participation_type" value="amis" id="amis" required>
+                            <label for="amis">Entre amis</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="nb_participations" value="plus_5" id="plus_5" required>
-                            <label for="plus_5">Plus de 5 fois</label>
+                            <input type="radio" name="participation_type" value="seul" id="seul" required>
+                            <label for="seul">Seul(e)</label>
                         </div>
                     </div>
-                    <div class="error">Veuillez sélectionner le nombre de participations</div>
+                    <div class="error">Veuillez sélectionner votre type de participation</div>
                 </div>
             </div>
 
