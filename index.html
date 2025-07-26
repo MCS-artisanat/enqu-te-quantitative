@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enquête Quantitative - MCS</title>
+    <title>Enquête Fête de la Truffade - MCS</title>
     
     <!-- Google Fonts - Spectral + Inter pour cohérence avec votre site -->
     <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -103,8 +103,8 @@
         }
 
         .logo-space {
-            width: 200px; /* Augmenté de 120px à 150px */
-            height: 200px; /* Augmenté de 120px à 150px */
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             overflow: hidden;
             box-shadow: var(--shadow-luxury);
@@ -120,15 +120,14 @@
             line-height: 1.3;
         }
         
-        /* Ajoutez ce CSS dans votre section <style> */
         .logo-space img {
             width: 200%;
             height: 200%;
-            object-fit: contain; /* Change de "cover" à "contain" */
+            object-fit: contain;
             object-position: center;
             border-radius: 50%;
             background: white;
-            padding: 5px; /* Ajoute un peu d'espace */
+            padding: 5px;
         }
 
         .header h1 {
@@ -374,7 +373,7 @@
 
         .likert-options {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 15px;
         }
 
@@ -401,7 +400,7 @@
         }
 
         .likert-option label {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             display: block;
             cursor: pointer;
             font-weight: 400;
@@ -564,33 +563,34 @@
                     <img src="https://raw.githubusercontent.com/MCS-artisanat/enqu-te-quantitative/refs/heads/main/images/Asso%20Commer%C3%A7ant%20et%20artisan%20Arpajon%20sur%20C%C3%A8re.jpg" alt="Logo Partenaire">
                 </div>
             </div>
-            <h1 id="surveyTitle">Enquête sur la transition écologique</h1>
-            <p id="surveyDescription">Cette enquête vise à mieux comprendre vos perceptions et attentes concernant la transition écologique de votre territoire. L’ensemble des données collectées ont été traitées de manière éthique, dans le respect de la confidentialité, et systématiquement anonymisées afin de garantir la protection des personnes concernées.</p>
+            <h1 id="surveyTitle">Enquête Fête de la Truffade</h1>
+            <p id="surveyDescription">Votre avis nous intéresse ! Cette enquête nous permettra d'améliorer l'organisation et la qualité de la fête de la truffade. Vos réponses sont anonymes et précieuses pour faire évoluer cet événement traditionnel.</p>
         </header>
 
         <!-- PROGRESS -->
         <div class="progress">
             <div class="progress-bar">
-                <div class="progress-fill" id="progressBar" style="width: 25%"></div>
+                <div class="progress-fill" id="progressBar" style="width: 20%"></div>
             </div>
             <div class="steps">
                 <div class="step active">1</div>
                 <div class="step">2</div>
                 <div class="step">3</div>
                 <div class="step">4</div>
+                <div class="step">5</div>
             </div>
             <div class="step-info">
-                <span id="stepInfo">Étape 1 sur 4</span>
+                <span id="stepInfo">Étape 1 sur 5</span>
             </div>
         </div>
 
         <!-- FORM -->
         <form id="surveyForm">
-            <!-- SECTION 1: Profil -->
+            <!-- SECTION A: PROFIL VISITEUR -->
             <div class="section active" id="section1">
                 <h2><i class="fas fa-user"></i> Votre profil</h2>
                 <div class="section-description">
-                    Ces informations nous permettent de mieux comprendre votre contexte et d'adapter nos analyses aux différents profils de répondants.
+                    Ces informations nous aident à mieux comprendre qui visite notre fête et à adapter nos futures éditions.
                 </div>
                 
                 <div class="form-group">
@@ -658,178 +658,629 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Salaire mensuel net (en euros)</label>
-                    <input type="number" name="salaire" class="form-input" placeholder="Montant en euros" min="0" step="100">
-                    <div class="error">Veuillez indiquer un montant valide</div>
-                </div>
-
-                <div class="form-group">
                     <label class="form-label">Commune <span class="required">*</span></label>
                     <input type="text" name="commune" class="form-input" placeholder="Votre commune" required>
                     <div class="error">Veuillez indiquer votre commune</div>
                 </div>
-            </div>
 
-            <!-- SECTION 2: Participation -->
-            <div class="section" id="section2">
-                <h2><i class="fas fa-calendar-check"></i> Votre participation</h2>
-                <div class="section-description">
-                    Nous souhaitons comprendre votre niveau d'engagement dans les initiatives locales et votre perception des enjeux territoriaux.
+                <div class="form-group">
+                    <label class="form-label">Vous participez à cette fête : <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="participation_type" value="famille_enfants" id="famille_enfants" required>
+                            <label for="famille_enfants">En famille avec enfants</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="participation_type" value="couple" id="couple" required>
+                            <label for="couple">En couple</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="participation_type" value="amis" id="amis" required>
+                            <label for="amis">Entre amis</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="participation_type" value="seul" id="seul" required>
+                            <label for="seul">Seul(e)</label>
+                        </div>
+                    </div>
+                    <div class="error">Veuillez sélectionner une réponse</div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Avez-vous déjà participé à un événement lié à la transition écologique ? <span class="required">*</span></label>
+                    <label class="form-label">Vous avez participé combien de fois à la fête de la truffade ? <span class="required">*</span></label>
+                    <input type="number" name="nb_participations" class="form-input" placeholder="Nombre de participations" required min="0">
+                    <div class="error">Veuillez indiquer le nombre de participations</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Vous participez à cette fête : <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="participation_type" value="famille_enfants" id="famille_enfants" required>
+                            <label for="famille_enfants">En famille avec enfants</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="participation_type" value="couple" id="couple" required>
+                            <label for="couple">En couple</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="participation_type" value="amis" id="amis" required>
+                            <label for="amis">Entre amis</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="participation_type" value="seul" id="seul" required>
+                            <label for="seul">Seul(e)</label>
+                        </div>
+                    </div>
+                    <div class="error">Veuillez sélectionner votre type de participation</div>
+                </div>
+            </div>
+
+            <!-- SECTION B: MOTIVATIONS ET ATTENTES -->
+            <div class="section" id="section2">
+                <h2><i class="fas fa-heart"></i> Vos motivations et attentes</h2>
+                <div class="section-description">
+                    Comprenons ensemble ce qui vous a amené à cette fête et vos attentes concernant l'authenticité.
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Vos principales motivations pour venir (3 choix maximum) : <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="motivations" value="decouvrir_truffade" id="decouvrir_truffade">
+                            <label for="decouvrir_truffade">Découvrir/déguster la truffade authentique</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="motivations" value="moment_convivial" id="moment_convivial">
+                            <label for="moment_convivial">Passer un moment convivial</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="motivations" value="soutenir_commercants" id="soutenir_commercants">
+                            <label for="soutenir_commercants">Soutenir les commerçants locaux</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="motivations" value="produits_terroir" id="produits_terroir">
+                            <label for="produits_terroir">Découvrir les produits du terroir</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="motivations" value="ambiance_festive" id="ambiance_festive">
+                            <label for="ambiance_festive">Profiter de l'ambiance festive</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="motivations" value="autre" id="autre_motivation">
+                            <label for="autre_motivation">Autre</label>
+                        </div>
+                    </div>
+                    <div class="error">Veuillez sélectionner au moins une motivation</div>
+                </div>
+
+                <h3 style="font-family: 'Spectral', serif; color: var(--primary-blue); margin: 40px 0 20px 0; font-size: 1.4rem;">Concernant l'authenticité de cette fête, êtes-vous satisfait de :</h3>
+
+                <div class="likert">
+                    <div class="likert-question">La qualité des ingrédients utilisés</div>
                     <div class="likert-options">
                         <div class="likert-option">
-                            <input type="radio" name="participation_evenement" value="1" id="participation_oui" required>
-                            <label for="participation_oui">Oui</label>
+                            <input type="radio" name="auth_ingredients" value="1" id="auth_ingredients_1" required>
+                            <label for="auth_ingredients_1">Très insatisfait</label>
                         </div>
                         <div class="likert-option">
-                            <input type="radio" name="participation_evenement" value="2" id="participation_non" required>
-                            <label for="participation_non">Non</label>
+                            <input type="radio" name="auth_ingredients" value="2" id="auth_ingredients_2" required>
+                            <label for="auth_ingredients_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_ingredients" value="3" id="auth_ingredients_3" required>
+                            <label for="auth_ingredients_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_ingredients" value="4" id="auth_ingredients_4" required>
+                            <label for="auth_ingredients_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_ingredients" value="5" id="auth_ingredients_5" required>
+                            <label for="auth_ingredients_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="likert">
+                    <div class="likert-question">Le respect de la recette traditionnelle</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="auth_recette" value="1" id="auth_recette_1" required>
+                            <label for="auth_recette_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_recette" value="2" id="auth_recette_2" required>
+                            <label for="auth_recette_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_recette" value="3" id="auth_recette_3" required>
+                            <label for="auth_recette_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_recette" value="4" id="auth_recette_4" required>
+                            <label for="auth_recette_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_recette" value="5" id="auth_recette_5" required>
+                            <label for="auth_recette_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="likert">
+                    <div class="likert-question">La présence de producteurs locaux</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="auth_producteurs" value="1" id="auth_producteurs_1" required>
+                            <label for="auth_producteurs_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_producteurs" value="2" id="auth_producteurs_2" required>
+                            <label for="auth_producteurs_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_producteurs" value="3" id="auth_producteurs_3" required>
+                            <label for="auth_producteurs_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_producteurs" value="4" id="auth_producteurs_4" required>
+                            <label for="auth_producteurs_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_producteurs" value="5" id="auth_producteurs_5" required>
+                            <label for="auth_producteurs_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="likert">
+                    <div class="likert-question">L'ambiance conviviale et familiale</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="auth_ambiance" value="1" id="auth_ambiance_1" required>
+                            <label for="auth_ambiance_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_ambiance" value="2" id="auth_ambiance_2" required>
+                            <label for="auth_ambiance_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_ambiance" value="3" id="auth_ambiance_3" required>
+                            <label for="auth_ambiance_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_ambiance" value="4" id="auth_ambiance_4" required>
+                            <label for="auth_ambiance_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="auth_ambiance" value="5" id="auth_ambiance_5" required>
+                            <label for="auth_ambiance_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="error" id="authenticiteError">Veuillez répondre à toutes les questions d'authenticité</div>
+            </div>
+
+            <!-- SECTION C: ÉVALUATION DE LA QUALITÉ -->
+            <div class="section" id="section3">
+                <h2><i class="fas fa-star"></i> Évaluation de la qualité</h2>
+                <div class="section-description">
+                    Votre évaluation de la qualité alimentaire, du service et de l'organisation nous aide à améliorer l'événement.
+                </div>
+
+                <h3 style="font-family: 'Spectral', serif; color: var(--primary-blue); margin: 40px 0 20px 0; font-size: 1.4rem;">Qualité alimentaire</h3>
+
+                <div class="likert">
+                    <div class="likert-question">Goût et saveur de la truffade</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="qual_gout" value="1" id="qual_gout_1" required>
+                            <label for="qual_gout_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_gout" value="2" id="qual_gout_2" required>
+                            <label for="qual_gout_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_gout" value="3" id="qual_gout_3" required>
+                            <label for="qual_gout_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_gout" value="4" id="qual_gout_4" required>
+                            <label for="qual_gout_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_gout" value="5" id="qual_gout_5" required>
+                            <label for="qual_gout_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="likert">
+                    <div class="likert-question">Fraîcheur des ingrédients</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="qual_fraicheur" value="1" id="qual_fraicheur_1" required>
+                            <label for="qual_fraicheur_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_fraicheur" value="2" id="qual_fraicheur_2" required>
+                            <label for="qual_fraicheur_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_fraicheur" value="3" id="qual_fraicheur_3" required>
+                            <label for="qual_fraicheur_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_fraicheur" value="4" id="qual_fraicheur_4" required>
+                            <label for="qual_fraicheur_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_fraicheur" value="5" id="qual_fraicheur_5" required>
+                            <label for="qual_fraicheur_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="likert">
+                    <div class="likert-question">Portion servie</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="qual_portion" value="1" id="qual_portion_1" required>
+                            <label for="qual_portion_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_portion" value="2" id="qual_portion_2" required>
+                            <label for="qual_portion_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_portion" value="3" id="qual_portion_3" required>
+                            <label for="qual_portion_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_portion" value="4" id="qual_portion_4" required>
+                            <label for="qual_portion_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="qual_portion" value="5" id="qual_portion_5" required>
+                            <label for="qual_portion_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="font-family: 'Spectral', serif; color: var(--primary-blue); margin: 40px 0 20px 0; font-size: 1.4rem;">Qualité du service</h3>
+
+                <div class="likert">
+                    <div class="likert-question">Amabilité du personnel</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="serv_amabilite" value="1" id="serv_amabilite_1" required>
+                            <label for="serv_amabilite_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="serv_amabilite" value="2" id="serv_amabilite_2" required>
+                            <label for="serv_amabilite_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="serv_amabilite" value="3" id="serv_amabilite_3" required>
+                            <label for="serv_amabilite_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="serv_amabilite" value="4" id="serv_amabilite_4" required>
+                            <label for="serv_amabilite_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="serv_amabilite" value="5" id="serv_amabilite_5" required>
+                            <label for="serv_amabilite_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="likert">
+                    <div class="likert-question">Rapidité du service</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="serv_rapidite" value="1" id="serv_rapidite_1" required>
+                            <label for="serv_rapidite_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="serv_rapidite" value="2" id="serv_rapidite_2" required>
+                            <label for="serv_rapidite_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="serv_rapidite" value="3" id="serv_rapidite_3" required>
+                            <label for="serv_rapidite_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="serv_rapidite" value="4" id="serv_rapidite_4" required>
+                            <label for="serv_rapidite_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="serv_rapidite" value="5" id="serv_rapidite_5" required>
+                            <label for="serv_rapidite_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="font-family: 'Spectral', serif; color: var(--primary-blue); margin: 40px 0 20px 0; font-size: 1.4rem;">Organisation et infrastructures</h3>
+
+                <div class="form-group">
+                    <label class="form-label">Avez-vous rencontré des difficultés pour trouver les boissons ? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="difficulte_boissons" value="oui" id="difficulte_oui" required>
+                            <label for="difficulte_oui">Oui</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="difficulte_boissons" value="non" id="difficulte_non" required>
+                            <label for="difficulte_non">Non</label>
                         </div>
                     </div>
                     <div class="error">Veuillez répondre à cette question</div>
                 </div>
 
-                <div class="likert">
-                    <div class="likert-question">La transition écologique est une priorité pour mon territoire</div>
-                    <div class="likert-options">
-                        <div class="likert-option">
-                            <input type="radio" name="priorite_territoire" value="1" id="p1" required>
-                            <label for="p1">Pas du tout d'accord</label>
-                        </div>
-                        <div class="likert-option">
-                            <input type="radio" name="priorite_territoire" value="2" id="p2" required>
-                            <label for="p2">Tout à fait d'accord</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="likert">
-                    <div class="likert-question">Les citoyens sont suffisamment impliqués dans les décisions environnementales</div>
-                    <div class="likert-options">
-                        <div class="likert-option">
-                            <input type="radio" name="implication_citoyens" value="1" id="i1" required>
-                            <label for="i1">Pas du tout d'accord</label>
-                        </div>
-                        <div class="likert-option">
-                            <input type="radio" name="implication_citoyens" value="2" id="i2" required>
-                            <label for="i2">Tout à fait d'accord</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="likert">
-                    <div class="likert-question">Les actions de ma commune sont suffisantes</div>
-                    <div class="likert-options">
-                        <div class="likert-option">
-                            <input type="radio" name="actions_commune" value="1" id="a1" required>
-                            <label for="a1">Pas du tout d'accord</label>
-                        </div>
-                        <div class="likert-option">
-                            <input type="radio" name="actions_commune" value="2" id="a2" required>
-                            <label for="a2">Tout à fait d'accord</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="error" id="likertError">Veuillez répondre à toutes les questions</div>
-            </div>
-
-            <!-- SECTION 3: Priorités -->
-            <div class="section" id="section3">
-                <h2><i class="fas fa-list-check"></i> Vos priorités</h2>
-                <div class="section-description">
-                    Identifiez les domaines qui vous semblent les plus importants pour la transition écologique de votre territoire.
-                </div>
-
                 <div class="form-group">
-                    <label class="form-label">Principales priorités environnementales (3 max) <span class="required">*</span></label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="priorites" value="energie" id="energie">
-                            <label for="energie">Énergies renouvelables</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="priorites" value="mobilite" id="mobilite">
-                            <label for="mobilite">Mobilités douces</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="priorites" value="biodiversite" id="biodiversite">
-                            <label for="biodiversite">Biodiversité</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="priorites" value="dechets" id="dechets">
-                            <label for="dechets">Gestion des déchets</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="priorites" value="agriculture" id="agriculture">
-                            <label for="agriculture">Agriculture durable</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" name="priorites" value="batiment" id="batiment">
-                            <label for="batiment">Rénovation énergétique</label>
-                        </div>
-                    </div>
-                    <div class="error">Veuillez sélectionner au moins une priorité</div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Fréquence de participation aux actions environnementales <span class="required">*</span></label>
+                    <label class="form-label">Le principe du gobelet payant (2€) non-remboursable vous paraît-il : <span class="required">*</span></label>
                     <div class="radio-group">
                         <div class="radio-item">
-                            <input type="radio" name="frequence" value="jamais" id="jamais" required>
-                            <label for="jamais">Jamais</label>
+                            <input type="radio" name="gobelet_avis" value="justifie" id="justifie" required>
+                            <label for="justifie">Tout à fait justifié</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="frequence" value="rarement" id="rarement" required>
-                            <label for="rarement">Rarement (1-2 fois/an)</label>
+                            <input type="radio" name="gobelet_avis" value="plutot_justifie" id="plutot_justifie" required>
+                            <label for="plutot_justifie">Plutôt justifié</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="frequence" value="parfois" id="parfois" required>
-                            <label for="parfois">Parfois (3-6 fois/an)</label>
+                            <input type="radio" name="gobelet_avis" value="plutot_excessif" id="plutot_excessif" required>
+                            <label for="plutot_excessif">Plutôt excessif</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="frequence" value="souvent" id="souvent" required>
-                            <label for="souvent">Souvent (plus de 6 fois/an)</label>
+                            <input type="radio" name="gobelet_avis" value="excessif" id="excessif" required>
+                            <label for="excessif">Tout à fait excessif</label>
                         </div>
                     </div>
-                    <div class="error">Veuillez sélectionner une fréquence</div>
+                    <div class="error">Veuillez donner votre avis sur le gobelet payant</div>
                 </div>
+
+                <div class="likert">
+                    <div class="likert-question">Signalétique et informations</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="org_signaletique" value="1" id="org_signaletique_1" required>
+                            <label for="org_signaletique_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_signaletique" value="2" id="org_signaletique_2" required>
+                            <label for="org_signaletique_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_signaletique" value="3" id="org_signaletique_3" required>
+                            <label for="org_signaletique_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_signaletique" value="4" id="org_signaletique_4" required>
+                            <label for="org_signaletique_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_signaletique" value="5" id="org_signaletique_5" required>
+                            <label for="org_signaletique_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="likert">
+                    <div class="likert-question">Fluidité circulation/organisation</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="org_fluidite" value="1" id="org_fluidite_1" required>
+                            <label for="org_fluidite_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_fluidite" value="2" id="org_fluidite_2" required>
+                            <label for="org_fluidite_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_fluidite" value="3" id="org_fluidite_3" required>
+                            <label for="org_fluidite_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_fluidite" value="4" id="org_fluidite_4" required>
+                            <label for="org_fluidite_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_fluidite" value="5" id="org_fluidite_5" required>
+                            <label for="org_fluidite_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="likert">
+                    <div class="likert-question">Propreté des espaces</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="org_proprete" value="1" id="org_proprete_1" required>
+                            <label for="org_proprete_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_proprete" value="2" id="org_proprete_2" required>
+                            <label for="org_proprete_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_proprete" value="3" id="org_proprete_3" required>
+                            <label for="org_proprete_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_proprete" value="4" id="org_proprete_4" required>
+                            <label for="org_proprete_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="org_proprete" value="5" id="org_proprete_5" required>
+                            <label for="org_proprete_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="error" id="qualiteError">Veuillez répondre à toutes les questions de qualité</div>
             </div>
 
-            <!-- SECTION 4: Commentaires -->
+            <!-- SECTION D: EXPÉRIENCE CULTURELLE -->
             <div class="section" id="section4">
-                <h2><i class="fas fa-comments"></i> Vos commentaires</h2>
+                <h2><i class="fas fa-landmark"></i> Expérience culturelle</h2>
                 <div class="section-description">
-                    Partagez vos réflexions et suggestions pour enrichir notre compréhension des enjeux territoriaux.
+                    Évaluons ensemble l'apport culturel et patrimonial de cette fête pour le territoire.
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Actions souhaitées par votre commune</label>
-                    <textarea name="actions_souhaitees" class="form-input form-textarea" placeholder="Décrivez les actions que vous aimeriez voir mise en place par votre commune..."></textarea>
-                </div>
+                <h3 style="font-family: 'Spectral', serif; color: var(--primary-blue); margin: 40px 0 20px 0; font-size: 1.4rem;">Cette fête vous a-t-elle satisfait concernant :</h3>
 
-                <div class="form-group">
-                    <label class="form-label">Principaux freins à la transition écologique</label>
-                    <textarea name="freins" class="form-input form-textarea" placeholder="Identifiez les obstacles qui ralentissent selon vous la transition écologique..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Autres commentaires</label>
-                    <textarea name="commentaires" class="form-input form-textarea" placeholder="Vos commentaires libres sur la transition écologique..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" name="newsletter" value="oui" id="newsletter">
-                        <label for="newsletter">Je souhaite recevoir les résultats de l'enquête</label>
+                <div class="likert">
+                    <div class="likert-question">L'apprentissage sur la culture culinaire locale</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="cult_apprentissage" value="1" id="cult_apprentissage_1" required>
+                            <label for="cult_apprentissage_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_apprentissage" value="2" id="cult_apprentissage_2" required>
+                            <label for="cult_apprentissage_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_apprentissage" value="3" id="cult_apprentissage_3" required>
+                            <label for="cult_apprentissage_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_apprentissage" value="4" id="cult_apprentissage_4" required>
+                            <label for="cult_apprentissage_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_apprentissage" value="5" id="cult_apprentissage_5" required>
+                            <label for="cult_apprentissage_5">Très satisfait</label>
+                        </div>
                     </div>
                 </div>
 
+                <div class="likert">
+                    <div class="likert-question">La découverte de l'histoire de la truffade</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="cult_histoire" value="1" id="cult_histoire_1" required>
+                            <label for="cult_histoire_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_histoire" value="2" id="cult_histoire_2" required>
+                            <label for="cult_histoire_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_histoire" value="3" id="cult_histoire_3" required>
+                            <label for="cult_histoire_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_histoire" value="4" id="cult_histoire_4" required>
+                            <label for="cult_histoire_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_histoire" value="5" id="cult_histoire_5" required>
+                            <label for="cult_histoire_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="likert">
+                    <div class="likert-question">La rencontre avec les producteurs</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="cult_producteurs" value="1" id="cult_producteurs_1" required>
+                            <label for="cult_producteurs_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_producteurs" value="2" id="cult_producteurs_2" required>
+                            <label for="cult_producteurs_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_producteurs" value="3" id="cult_producteurs_3" required>
+                            <label for="cult_producteurs_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_producteurs" value="4" id="cult_producteurs_4" required>
+                            <label for="cult_producteurs_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_producteurs" value="5" id="cult_producteurs_5" required>
+                            <label for="cult_producteurs_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="likert">
+                    <div class="likert-question">Le renforcement de votre attachement au territoire</div>
+                    <div class="likert-options">
+                        <div class="likert-option">
+                            <input type="radio" name="cult_attachement" value="1" id="cult_attachement_1" required>
+                            <label for="cult_attachement_1">Très insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_attachement" value="2" id="cult_attachement_2" required>
+                            <label for="cult_attachement_2">Insatisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_attachement" value="3" id="cult_attachement_3" required>
+                            <label for="cult_attachement_3">Neutre</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_attachement" value="4" id="cult_attachement_4" required>
+                            <label for="cult_attachement_4">Satisfait</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" name="cult_attachement" value="5" id="cult_attachement_5" required>
+                            <label for="cult_attachement_5">Très satisfait</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="error" id="culturelError">Veuillez répondre à toutes les questions culturelles</div>
+            </div>
+
+            <!-- SECTION E: SATISFACTION GLOBALE ET FIDÉLITÉ -->
+            <div class="section" id="section5">
+                <h2><i class="fas fa-thumbs-up"></i> Satisfaction globale et fidélité</h2>
+                <div class="section-description">
+                    Votre évaluation globale et vos suggestions nous aideront à améliorer les prochaines éditions.
+                </div>
+
                 <div class="form-group">
-                    <label class="form-label">Email (pour recevoir les résultats)</label>
+                    <label class="form-label">Globalement, quel est votre niveau de satisfaction ? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="satisfaction_globale" value="tres_insatisfait" id="tres_insatisfait" required>
+                            <label for="tres_insatisfait">Très insatisfait</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="satisfaction_globale" value="insatisfait" id="insatisfait" required>
+                            <label for="insatisfait">Insatisfait</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="satisfaction_globale" value="neutre" id="neutre" required>
+                            <label for="neutre">Ni satisfait ni insatisfait</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="satisfaction_globale" value="satisfait" id="satisfait" required>
+                            <label for="satisfait">Satisfait</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="satisfaction_globale" value="tres_satisfait" id="tres_satisfait" required>
+                            <label for="tres_satisfait">Très satisfait</label>
+                        </div>
+                    </div>
+                    <div class="error">Veuillez indiquer votre niveau de satisfaction global</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Quelles sont selon vous les axes d'améliorations ?</label>
+                    <textarea name="ameliorations" class="form-input form-textarea" placeholder="Décrivez les points que vous aimeriez voir améliorés pour les prochaines éditions..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Adresse email (si vous souhaitez être recontacté)</label>
                     <input type="email" name="email" class="form-input" placeholder="votre.email@exemple.com">
+                    <div class="error">Veuillez saisir un email valide</div>
                 </div>
             </div>
 
@@ -839,7 +1290,7 @@
                     <i class="fas fa-arrow-left"></i> Précédent
                 </button>
                 
-                <span id="stepCounter" class="step-info">Étape 1 sur 4</span>
+                <span id="stepCounter" class="step-info">Étape 1 sur 5</span>
                 
                 <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextStep()">
                     Suivant <i class="fas fa-arrow-right"></i>
@@ -855,12 +1306,12 @@
         <div class="success" id="successMessage">
             <i class="fas fa-check-circle"></i>
             <h3>Merci pour votre participation !</h3>
-            <p>Vos réponses ont été enregistrées avec succès. Nous vous remercions pour le temps accordé à cette enquête.</p>
+            <p>Vos réponses ont été enregistrées avec succès. Nous vous remercions pour le temps accordé à cette enquête sur la fête de la truffade.</p>
         </div>
     </div>
 
     <script>
-    // Remplacez cette partie dans votre script :
+    // Configuration Firebase
     const firebaseConfig = {
         apiKey: "AIzaSyBZ_9a1n3FiIfwJxggkqRdEOob2VdASsJo",
         authDomain: "enquete-quantitative.firebaseapp.com",
@@ -876,17 +1327,17 @@
 
     // Variables globales
     let currentStep = 1;
-    const totalSteps = 4;
+    const totalSteps = 5;
 
     // Initialisation au chargement de la page
     document.addEventListener('DOMContentLoaded', function() {
         updateProgress();
         setupEventListeners();
         
-        // Limitation des checkboxes priorités (max 3)
-        const prioritesCheckboxes = document.querySelectorAll('input[name="priorites"]');
-        prioritesCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', limitCheckboxes);
+        // Limitation des checkboxes motivations (max 3)
+        const motivationsCheckboxes = document.querySelectorAll('input[name="motivations"]');
+        motivationsCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', limitMotivationsCheckboxes);
         });
     });
 
@@ -912,6 +1363,7 @@
                 document.getElementById(`section${currentStep}`).classList.add('active');
                 updateProgress();
                 updateNavigation();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
     }
@@ -924,6 +1376,7 @@
             document.getElementById(`section${currentStep}`).classList.add('active');
             updateProgress();
             updateNavigation();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
 
@@ -1004,58 +1457,101 @@
             }
         });
         
-        // Validation spécifique pour l'étape 2 (Likert)
+        // Validation spécifique pour l'étape 2 (Motivations et Authenticité)
         if (currentStep === 2) {
-            const likertQuestions = ['priorite_territoire', 'implication_citoyens', 'actions_commune'];
-            let allAnswered = true;
+            // Vérifier qu'au moins une motivation est sélectionnée
+            const motivationsChecked = document.querySelectorAll('input[name="motivations"]:checked');
+            const motivationsError = currentSection.querySelector('.checkbox-group').parentNode.querySelector('.error');
             
-            likertQuestions.forEach(question => {
+            if (motivationsChecked.length === 0) {
+                showError(motivationsError, 'Veuillez sélectionner au moins une motivation');
+                isValid = false;
+            } else {
+                hideError(motivationsError);
+            }
+
+            // Vérifier toutes les questions d'authenticité
+            const authQuestions = ['auth_ingredients', 'auth_recette', 'auth_producteurs', 'auth_ambiance'];
+            let allAuthAnswered = true;
+            
+            authQuestions.forEach(question => {
                 const radios = document.querySelectorAll(`input[name="${question}"]`);
                 const isAnswered = Array.from(radios).some(radio => radio.checked);
                 if (!isAnswered) {
-                    allAnswered = false;
+                    allAuthAnswered = false;
                 }
             });
             
-            const likertError = document.getElementById('likertError');
-            if (!allAnswered) {
-                showError(likertError, 'Veuillez répondre à toutes les questions');
+            const authError = document.getElementById('authenticiteError');
+            if (!allAuthAnswered) {
+                showError(authError, 'Veuillez répondre à toutes les questions d\'authenticité');
                 isValid = false;
             } else {
-                hideError(likertError);
+                hideError(authError);
             }
         }
         
-        // Validation spécifique pour l'étape 3 (Priorités)
+        // Validation spécifique pour l'étape 3 (Qualité)
         if (currentStep === 3) {
-            const prioritesChecked = document.querySelectorAll('input[name="priorites"]:checked');
-            const prioritesError = currentSection.querySelector('.checkbox-group').parentNode.querySelector('.error');
+            const qualiteQuestions = ['qual_gout', 'qual_fraicheur', 'qual_portion', 'serv_amabilite', 'serv_rapidite', 'org_signaletique', 'org_fluidite', 'org_proprete'];
+            let allQualiteAnswered = true;
             
-            if (prioritesChecked.length === 0) {
-                showError(prioritesError, 'Veuillez sélectionner au moins une priorité');
+            qualiteQuestions.forEach(question => {
+                const radios = document.querySelectorAll(`input[name="${question}"]`);
+                const isAnswered = Array.from(radios).some(radio => radio.checked);
+                if (!isAnswered) {
+                    allQualiteAnswered = false;
+                }
+            });
+            
+            const qualiteError = document.getElementById('qualiteError');
+            if (!allQualiteAnswered) {
+                showError(qualiteError, 'Veuillez répondre à toutes les questions de qualité');
                 isValid = false;
             } else {
-                hideError(prioritesError);
+                hideError(qualiteError);
+            }
+        }
+
+        // Validation spécifique pour l'étape 4 (Expérience culturelle)
+        if (currentStep === 4) {
+            const culturelQuestions = ['cult_apprentissage', 'cult_histoire', 'cult_producteurs', 'cult_attachement'];
+            let allCulturelAnswered = true;
+            
+            culturelQuestions.forEach(question => {
+                const radios = document.querySelectorAll(`input[name="${question}"]`);
+                const isAnswered = Array.from(radios).some(radio => radio.checked);
+                if (!isAnswered) {
+                    allCulturelAnswered = false;
+                }
+            });
+            
+            const culturelError = document.getElementById('culturelError');
+            if (!allCulturelAnswered) {
+                showError(culturelError, 'Veuillez répondre à toutes les questions culturelles');
+                isValid = false;
+            } else {
+                hideError(culturelError);
             }
         }
         
         return isValid;
     }
 
-    // Limitation du nombre de checkboxes (max 3 pour les priorités)
-    function limitCheckboxes() {
-        const prioritesChecked = document.querySelectorAll('input[name="priorites"]:checked');
-        const prioritesAll = document.querySelectorAll('input[name="priorites"]');
+    // Limitation du nombre de checkboxes motivations (max 3)
+    function limitMotivationsCheckboxes() {
+        const motivationsChecked = document.querySelectorAll('input[name="motivations"]:checked');
+        const motivationsAll = document.querySelectorAll('input[name="motivations"]');
         
-        if (prioritesChecked.length >= 3) {
-            prioritesAll.forEach(checkbox => {
+        if (motivationsChecked.length >= 3) {
+            motivationsAll.forEach(checkbox => {
                 if (!checkbox.checked) {
                     checkbox.disabled = true;
                     checkbox.parentNode.style.opacity = '0.5';
                 }
             });
         } else {
-            prioritesAll.forEach(checkbox => {
+            motivationsAll.forEach(checkbox => {
                 checkbox.disabled = false;
                 checkbox.parentNode.style.opacity = '1';
             });
@@ -1066,10 +1562,15 @@
     function getErrorMessage(field) {
         const fieldName = field.getAttribute('name');
         const messages = {
-            'age': 'Veuillez sélectionner votre âge',
-            'statut': 'Veuillez sélectionner votre statut',
+            'age': 'Veuillez sélectionner votre tranche d\'âge',
+            'sexe': 'Veuillez sélectionner votre sexe',
+            'csp': 'Veuillez sélectionner votre catégorie socio-professionnelle',
             'commune': 'Veuillez indiquer votre commune',
-            'frequence': 'Veuillez sélectionner une fréquence'
+            'participation_type': 'Veuillez sélectionner votre type de participation',
+            'nb_participations': 'Veuillez indiquer le nombre de participations',
+            'difficulte_boissons': 'Veuillez répondre à cette question',
+            'gobelet_avis': 'Veuillez donner votre avis',
+            'satisfaction_globale': 'Veuillez indiquer votre satisfaction globale'
         };
         
         return messages[fieldName] || 'Ce champ est obligatoire';
@@ -1104,7 +1605,7 @@
         
         // Données simples
         for (let [key, value] of formData.entries()) {
-            if (key === 'priorites') {
+            if (key === 'motivations') {
                 // Gérer les checkboxes multiples
                 if (!data[key]) data[key] = [];
                 data[key].push(value);
@@ -1117,6 +1618,7 @@
         data.timestamp = new Date().toISOString();
         data.user_agent = navigator.userAgent;
         data.completed = true;
+        data.survey_type = 'fete_truffade';
         
         return data;
     }
@@ -1140,7 +1642,7 @@
             const data = collectFormData();
             
             // Sauvegarde dans Firebase
-            await db.collection('survey_responses').add(data);
+            await db.collection('survey_truffade').add(data);
             
             // Affichage du message de succès
             document.getElementById('surveyForm').style.display = 'none';
@@ -1159,84 +1661,6 @@
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
         }
-    }
-
-    // Fonctions utilitaires
-    function animateProgressBar() {
-        const progressBar = document.getElementById('progressBar');
-        progressBar.style.transition = 'width 0.5s ease-in-out';
-    }
-
-    // Sauvegarde locale (optionnel - pour récupérer en cas de fermeture)
-    function saveProgress() {
-        const data = collectFormData();
-        localStorage.setItem('survey_progress', JSON.stringify({
-            step: currentStep,
-            data: data
-        }));
-    }
-
-    // Récupération de la progression (optionnel)
-    function loadProgress() {
-        const saved = localStorage.getItem('survey_progress');
-        if (saved) {
-            const progress = JSON.parse(saved);
-            // Restaurer les données du formulaire
-            Object.keys(progress.data).forEach(key => {
-                const field = document.querySelector(`[name="${key}"]`);
-                if (field) {
-                    field.value = progress.data[key];
-                }
-            });
-            
-            // Restaurer l'étape
-            currentStep = progress.step;
-            updateProgress();
-            updateNavigation();
-        }
-    }
-
-    // Configuration personnalisée (optionnel)
-    function configureSurvey(config) {
-        if (config.title) {
-            document.getElementById('surveyTitle').textContent = config.title;
-        }
-        
-        if (config.description) {
-            document.getElementById('surveyDescription').textContent = config.description;
-        }
-        
-        if (config.partnerLogo) {
-            const logo = document.getElementById('partnerLogo');
-            logo.src = config.partnerLogo;
-            logo.style.display = 'block';
-        }
-    }
-
-    // Exemple d'utilisation de la configuration
-    // configureSurvey({
-    //     title: "Enquête sur la transition écologique - Ville de Paris",
-    //     description: "Participez à la consultation citoyenne...",
-    //     partnerLogo: "https://example.com/logo.png"
-    // });
-
-    // Analytics (optionnel)
-    function trackEvent(action, category = 'Survey') {
-        if (typeof gtag !== 'undefined') {
-            gtag('event', action, {
-                event_category: category,
-                event_label: `Step ${currentStep}`
-            });
-        }
-    }
-
-    // Appels de tracking aux moments clés
-    function trackProgress() {
-        trackEvent('step_completed', 'Survey');
-    }
-
-    function trackSubmission() {
-        trackEvent('form_submitted', 'Survey');
     }
     </script>
 
