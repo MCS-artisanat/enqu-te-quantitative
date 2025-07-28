@@ -121,13 +121,13 @@
         }
         
         .logo-space img {
-            width: 90%; /* Augmenté de 85% à 90% */
-            height: 90%; /* Augmenté de 85% à 90% */
+            width: 95%; /* Augmenté pour utiliser plus d'espace */
+            height: 95%; /* Augmenté pour utiliser plus d'espace */
             object-fit: contain;
             object-position: center;
-            border-radius: 50%;
-            background: white;
-            padding: 5px; /* Réduit de 15px à 5px pour plus d'espace pour le contenu */
+            border-radius: 0; /* SUPPRIMÉ le border-radius qui coupait le texte */
+            background: transparent; /* Transparent pour ne pas masquer */
+            padding: 0; /* Pas de padding sur l'image */
         }
 
         .header h1 {
