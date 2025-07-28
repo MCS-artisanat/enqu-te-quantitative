@@ -103,13 +103,13 @@
         }
 
         .logo-space {
-            width: 280px; /* Augmenté de 200px à 280px */
-            height: 280px; /* Augmenté de 200px à 280px */
+            width: 320px; /* Augmenté de 280px à 320px pour contenir tout le texte */
+            height: 320px; /* Augmenté de 280px à 320px pour contenir tout le texte */
             border-radius: 50%;
-            overflow: visible; /* Changé de hidden à visible pour éviter la troncature */
+            overflow: hidden; /* Remis à hidden maintenant que le cercle est plus grand */
             box-shadow: var(--shadow-luxury);
             background: white;
-            padding: 15px; /* Augmenté de 10px à 15px */
+            padding: 20px; /* Augmenté de 15px à 20px pour plus d'espace intérieur */
             border: 2px dashed rgba(255,255,255,0.3);
             display: flex;
             align-items: center;
@@ -121,15 +121,15 @@
         }
         
         .logo-space img {
-            width: 95%; /* Augmenté pour utiliser plus d'espace */
-            height: 95%; /* Augmenté pour utiliser plus d'espace */
+            width: 85%; /* Réduit de 95% à 85% pour laisser de la marge */
+            height: 85%; /* Réduit de 95% à 85% pour laisser de la marge */
             object-fit: contain;
             object-position: center;
-            border-radius: 0; /* SUPPRIMÉ le border-radius qui coupait le texte */
-            background: transparent; /* Transparent pour ne pas masquer */
-            padding: 0; /* Pas de padding sur l'image */
+            border-radius: 0;
+            background: transparent;
+            padding: 0;
         }
-
+        
         .header h1 {
             font-family: 'Spectral', serif;
             font-size: 3.5rem;
