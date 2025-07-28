@@ -103,26 +103,31 @@
         }
 
         .logo-space {
-            width: 130px;
-            height: 130px;
+            width: 280px; /* Augmenté de 200px à 280px */
+            height: 280px; /* Augmenté de 200px à 280px */
             border-radius: 50%;
             overflow: hidden;
             box-shadow: var(--shadow-luxury);
             background: white;
-            padding: 10px;
-            border: 2px dashed rgba(255, 255, 255, 0.3);
+            padding: 15px; /* Augmenté de 10px à 15px */
+            border: 2px dashed rgba(255,255,255,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            line-height: 1.3;
         }
         
         .logo-space img {
-            max-width: 100%;
-            max-height: 100%;
+            width: 100%; /* Réduit de 200% à 100% pour un meilleur affichage */
+            height: 100%; /* Réduit de 200% à 100% pour un meilleur affichage */
             object-fit: contain;
             object-position: center;
+            border-radius: 50%;
             background: white;
-            padding: 5px;
+            padding: 10px; /* Augmenté de 5px à 10px */
         }
 
         .header h1 {
