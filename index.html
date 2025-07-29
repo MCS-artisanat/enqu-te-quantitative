@@ -324,6 +324,17 @@
             margin-top: 15px;
         }
 
+        /* Style spécial pour les groupes avec beaucoup d'options */
+        .radio-group.two-columns {
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .radio-group.three-columns {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
         .radio-item, .checkbox-item {
             display: flex;
             align-items: center;
@@ -600,46 +611,42 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Statut professionnel <span class="required">*</span></label>
-                    <div class="radio-group">
+                    <label class="form-label">Quelle est votre catégorie socio-professionnelle : <span class="required">*</span></label>
+                    <div class="radio-group two-columns">
                         <div class="radio-item">
-                            <input type="radio" name="statut" value="cadre_pis" id="cadre_pis" required>
-                            <label for="cadre_pis">Cadre et Profession Intellectuelle Supérieure</label>
+                            <input type="radio" name="csp" value="artisan_commercant" id="artisan_commercant" required>
+                            <label for="artisan_commercant">Artisan, Commerçant, Chef d'entreprise</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="statut" value="profession_intermediaire" id="profession_intermediaire" required>
-                            <label for="profession_intermediaire">Profession intermédiaire</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="statut" value="employe" id="employe" required>
+                            <input type="radio" name="csp" value="employe" id="employe" required>
                             <label for="employe">Employé</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="statut" value="ouvrier" id="ouvrier" required>
+                            <input type="radio" name="csp" value="ouvrier" id="ouvrier" required>
                             <label for="ouvrier">Ouvrier</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="statut" value="artisan_commercant" id="artisan_commercant" required>
-                            <label for="artisan_commercant">Artisan, Commerçant et Chef d'entreprise</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="statut" value="agriculteur" id="agriculteur" required>
+                            <input type="radio" name="csp" value="agriculteur" id="agriculteur" required>
                             <label for="agriculteur">Agriculteur</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="statut" value="etudiant" id="etudiant" required>
-                            <label for="etudiant">Étudiant</label>
+                            <input type="radio" name="csp" value="profession_intermediaire" id="profession_intermediaire" required>
+                            <label for="profession_intermediaire">Profession intermédiaire</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="statut" value="retraite" id="retraite" required>
+                            <input type="radio" name="csp" value="retraite" id="retraite" required>
                             <label for="retraite">Retraité</label>
                         </div>
                         <div class="radio-item">
-                            <input type="radio" name="statut" value="sans emploi" id="retraite" required>
-                            <label for="retraite">Sans-emploi</label>
+                            <input type="radio" name="csp" value="etudiant" id="etudiant" required>
+                            <label for="etudiant">Étudiant</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="csp" value="sans_emploi" id="sans_emploi" required>
+                            <label for="sans_emploi">Sans emploi</label>
                         </div>
                     </div>
-                    <div class="error">Veuillez sélectionner votre statut professionnel</div>
+                    <div class="error">Veuillez sélectionner votre catégorie socio-professionnelle</div>
                 </div>
 
                 <div class="form-group">
