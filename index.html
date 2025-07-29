@@ -664,32 +664,66 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">Comment avez-vous entendu parler de la fête de la truffade ? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" name="source_information" value="bouche_oreille" id="bouche_oreille" required>
+                            <label for="bouche_oreille">Bouche à oreille (famille, amis, connaissances)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="source_information" value="reseaux_sociaux" id="reseaux_sociaux" required>
+                            <label for="reseaux_sociaux">Réseaux sociaux (Facebook, Instagram, etc.)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="source_information" value="affichage" id="affichage" required>
+                            <label for="affichage">Affichage public (affiches, panneaux)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="source_information" value="presse_locale" id="presse_locale" required>
+                            <label for="presse_locale">Presse locale (journal, radio)</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="source_information" value="site_web" id="site_web" required>
+                            <label for="site_web">Site internet ou newsletter</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="source_information" value="habitue" id="habitue" required>
+                            <label for="habitue">Je viens régulièrement, je connais la date</label>
+                        </div>
+                    </div>
+                    <div class="error">Veuillez indiquer comment vous avez entendu parler de la fête</div>
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">Vous avez participé combien de fois à la fête de la truffade ? <span class="required">*</span></label>
                     <input type="number" name="nb_participations" class="form-input" placeholder="Nombre de participations" required min="0">
                     <div class="error">Veuillez indiquer le nombre de participations</div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Vous participez à cette fête : <span class="required">*</span></label>
-                    <div class="radio-group">
-                        <div class="radio-item">
-                            <input type="radio" name="participation_type" value="famille_enfants" id="famille_enfants" required>
-                            <label for="famille_enfants">En famille avec enfants</label>
+                    <label class="form-label">À laquelle de ces activités avez-vous participé lors de la fête ? (plusieurs choix possibles)</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="activites_participees" value="randonnee" id="randonnee">
+                            <label for="randonnee">Randonnée</label>
                         </div>
-                        <div class="radio-item">
-                            <input type="radio" name="participation_type" value="couple" id="couple" required>
-                            <label for="couple">En couple</label>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="activites_participees" value="vente_vache" id="vente_vache">
+                            <label for="vente_vache">Vente de vache</label>
                         </div>
-                        <div class="radio-item">
-                            <input type="radio" name="participation_type" value="amis" id="amis" required>
-                            <label for="amis">Entre amis</label>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="activites_participees" value="concours_mangeur" id="concours_mangeur">
+                            <label for="concours_mangeur">Concours du plus gros mangeur</label>
                         </div>
-                        <div class="radio-item">
-                            <input type="radio" name="participation_type" value="seul" id="seul" required>
-                            <label for="seul">Seul(e)</label>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="activites_participees" value="repas_dimanche" id="repas_dimanche">
+                            <label for="repas_dimanche">Repas du dimanche soir</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="activites_participees" value="aucune" id="aucune_activite">
+                            <label for="aucune_activite">Aucune</label>
                         </div>
                     </div>
-                    <div class="error">Veuillez sélectionner votre type de participation</div>
                 </div>
             </div>
 
@@ -983,7 +1017,7 @@
                 <h3 style="font-family: 'Spectral', serif; color: var(--primary-blue); margin: 40px 0 20px 0; font-size: 1.4rem;">Organisation et infrastructures</h3>
 
                 <div class="form-group">
-                    <label class="form-label">Avez-vous rencontré des difficultés pour trouver les boissons ? <span class="required">*</span></label>
+                    <label class="form-label">Avez-vous rencontré des difficultés pour trouver cave à vin ? <span class="required">*</span></label>
                     <div class="radio-group">
                         <div class="radio-item">
                             <input type="radio" name="difficulte_boissons" value="oui" id="difficulte_oui" required>
@@ -1010,29 +1044,6 @@
                         </div>
                     </div>
                     <div class="error">Veuillez répondre à cette question</div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Le principe du gobelet payant (0,50€) non-remboursable vous paraît-il : <span class="required">*</span></label>
-                    <div class="radio-group">
-                        <div class="radio-item">
-                            <input type="radio" name="gobelet_avis" value="justifie" id="justifie" required>
-                            <label for="justifie">Tout à fait justifié</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="gobelet_avis" value="plutot_justifie" id="plutot_justifie" required>
-                            <label for="plutot_justifie">Plutôt justifié</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="gobelet_avis" value="plutot_excessif" id="plutot_excessif" required>
-                            <label for="plutot_excessif">Plutôt excessif</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="gobelet_avis" value="excessif" id="excessif" required>
-                            <label for="excessif">Tout à fait excessif</label>
-                        </div>
-                    </div>
-                    <div class="error">Veuillez donner votre avis sur le gobelet payant</div>
                 </div>
 
                 <div class="likert">
