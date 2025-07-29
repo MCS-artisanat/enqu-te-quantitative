@@ -558,6 +558,33 @@
                 height: 40px;
                 font-size: 1rem;
             }
+
+
+            /* Style spécial pour les groupes avec beaucoup d'options */
+            .radio-group.two-columns {
+                grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+            }
+            
+            .radio-group.three-columns {
+                grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+            }
+            
+            .checkbox-group.two-columns {
+                grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+            }
+            
+            /* CORRECTION SPÉCIFIQUE POUR LES LOGOS MOBILES */
+            .logo-space {
+                width: 250px !important;
+                height: 250px !important;
+                padding: 15px !important;
+                margin: 0 auto;
+            }
+            
+            .logo-space img {
+                width: 90% !important;
+                height: 90% !important;
+            }
         }
     </style>
 </head>
@@ -755,7 +782,7 @@
 
                 <div class="form-group">
                     <label class="form-label">Vos principales motivations pour venir (3 choix maximum) : <span class="required">*</span></label>
-                    <div class="radio-group two-columns">
+                    <div class="checkbox-group two-columns">
                         <div class="checkbox-item">
                             <input type="checkbox" name="motivations" value="decouvrir_truffade" id="decouvrir_truffade">
                             <label for="decouvrir_truffade">Découvrir/déguster la truffade authentique</label>
@@ -1627,8 +1654,8 @@
         
         // Données simples
         for (let [key, value] of formData.entries()) {
-            if (key === 'motivations') {
-                // Gérer les checkboxes multiples pour motivations
+            if (key === 'motivations' || key === 'activites_participees') {
+                // Gérer les checkboxes multiples
                 if (!data[key]) data[key] = [];
                 data[key].push(value);
             } else {
@@ -1640,7 +1667,7 @@
         data.timestamp = new Date().toISOString();
         data.user_agent = navigator.userAgent;
         data.completed = true;
-        data.survey_type = 'fete_truffade'; // Ajouté pour identifier le type
+        data.survey_type = 'fete_truffade';
         
         return data;
     }
